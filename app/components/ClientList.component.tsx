@@ -5,8 +5,7 @@ import * as Utils from "../utils";
 import ClientIcon from "./basics/ClientIcon.component";
 import useAppHook from "../features/hooks";
 import * as Constant from "@/app/constants";
-import { FaPhone } from "react-icons/fa";
-import { MdOutlinePhoneInTalk } from "react-icons/md";
+import { PiPhoneListFill } from "react-icons/pi";
 
 
 export default function ClientList() {
@@ -35,7 +34,7 @@ export default function ClientList() {
                     </div>
 
                     {t.phone != undefined && t.phone != "" && 
-                        <MdOutlinePhoneInTalk className="flex flex-row w-10 h-10 text-blue-600" />}
+                        <PiPhoneListFill className="flex flex-row w-10 h-10 text-green-500" />}
                 </div>
             ))}
 

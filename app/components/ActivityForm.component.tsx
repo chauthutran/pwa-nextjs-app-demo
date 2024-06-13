@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { JSONObject } from "../schemas/types";
 import useAppHook from "../features/hooks";
+import PrimaryButton from "./basics/PrimaryButton.component";
+import SecondaryButton from "./basics/SecondaryButton.component";
 
 function ActivityForm({clientData, activityData = {} as JSONObject, handleOnClose}) {
 
@@ -63,18 +65,17 @@ function ActivityForm({clientData, activityData = {} as JSONObject, handleOnClos
           </div>
 
             <div className="flex items-center justify-between">
-                <button 
+              
+                <PrimaryButton 
                     onClick={(e) => handleOnSaveClick(e)} 
-                    className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-2/3 mr-10">
-                    Save
-                </button>
+                    clazz="w-2/3 mr-10"
+                    label="Save"
+                />
 
-                <button 
-                    className="bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-2/3"
-                    onClick={(e) => handleOnCloseClick(e)}
-                    >
-                        Go back to the list
-                </button>
+                <SecondaryButton
+                    clazz="w-2/3"
+                    onClick={(e) => handleOnCloseClick(e)} 
+                    label=" Go back to the list"/>
             </div>
       </div>
     )

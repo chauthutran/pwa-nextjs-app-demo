@@ -24,17 +24,37 @@ const SidebarMenu: React.FC = () => {
   }
 
   return (
-    <div className="flex">
-      <button onClick={toggleSidebar} className="p-2 text-gray-700">
+    <div >
+      <button onClick={toggleSidebar} className="fixed top-0 left-0 m-4 bg-softPastel-lightBlue p-2 mr-8 rounded text-gray-800">
         <FaBars size={24} />
+        {/* <i className="fas fa-bars"></i> */}
       </button>
+      
 
       <div
-        className={`fixed top-0 left-0 h-full bg-green-700 text-white w-64 transform ${
+         className={`fixed top-0 left-0 h-full bg-softPastel-lightPink shadow-md transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out`}
       >
-        <button onClick={toggleSidebar} className="p-2 font-bold text-lg ml-2">
+        
+      <button className="text-gray-800 mb-4 font-semibold p-4" onClick={() => setIsOpen(false)}>
+        PWA App Demo
+      </button>
+      <hr className='w-full'/>
+
+      <div className="p-4 w-64 font-semibold">
+          
+          <nav className="space-y-4">
+            <a href="#" className="block text-gray-800 hover:bg-softPastel-mintGreen px-3 py-2 rounded-md" 
+              onClick={() => handleShowClientList()} >Client List</a>
+            <a href="#" className="block text-gray-800 hover:bg-softPastel-mintGreen px-3 py-2 rounded-md"
+            onClick={() => handleLogout() }
+            >Logout</a>
+          </nav>
+        </div>
+      </div>
+            
+        {/* <button onClick={toggleSidebar} className="p-2 font-bold text-lg ml-2">
           PWA App
         </button>
         <nav className="mt-10">
@@ -47,7 +67,7 @@ const SidebarMenu: React.FC = () => {
             </li>
           </ul>
         </nav>
-      </div>
+      </div> */}
     </div>
   );
 };

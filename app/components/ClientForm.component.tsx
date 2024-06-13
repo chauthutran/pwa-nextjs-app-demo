@@ -11,6 +11,8 @@ import * as Constant from "@/app/constants";
 import Alert from "./basics/Alert.component";
 import { CiEdit } from "react-icons/ci";
 import useAppHook from "../features/hooks";
+import PrimaryButton from "./basics/PrimaryButton.component";
+import SecondaryButton from "./basics/SecondaryButton.component";
 
 
 export default function ClientForm({ clientData =  Utils.createEmptyClientData() as JSONObject, handleCloseForm}) {
@@ -121,17 +123,16 @@ export default function ClientForm({ clientData =  Utils.createEmptyClientData()
           </div>
 
           {allowToEdit && <div className="flex items-center justify-between">
-                <button 
+                <PrimaryButton 
                     onClick={(e) => handleOnSaveClick(e)} 
-                    className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-2/3 mr-10">
-                    Save
-                </button>
+                    clazz="w-2/3 mr-10"
+                    label="Save"
+                />
 
-                <button 
-                    className="bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-2/3"
-                    onClick={(e) => handleOnCancelClick(e)}>
-                        Cancel
-                </button>
+                <SecondaryButton 
+                    clazz="w-2/3"
+                    onClick={(e) => handleOnCancelClick(e)} 
+                    label="Save"/>
             </div>}
       </div>
     )

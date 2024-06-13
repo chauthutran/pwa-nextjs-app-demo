@@ -6,29 +6,31 @@ import Alert from "./basics/Alert.component";
 import * as Constant from "@/app/constants";
 import { createMessage } from "../utils";
 import useAppHook from "../features/hooks";
-import { FaRegUser } from "react-icons/fa6";
-import { FaRegCircleUser } from "react-icons/fa6";
 import { FaKey } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import SecondaryButton from "./basics/SecondaryButton.component";
+import PrimaryButton from "./basics/PrimaryButton.component";
+import SpecButton from "./basics/SpecButton.component";
 
 
 export default function Login() {
 
-    const {setLoginUserData, setMainUi} = useAppHook();
+    const { setLoginUserData, setMainUi } = useAppHook();
 
     const [message, setMessage] = useState(createMessage());
     const [username, setUsername] = useState("test1");
     const [pin, setPin] = useState("1234");
-
+ 
     const handleOnLogin = async () => {
-        if( username == "" || pin == "" ) {
-            setMessage(createMessage( Constant.ALERT_TYPE_ERROR, "Please enter username/pin"));
+        if (username == "" || pin == "") {
+            setMessage(createMessage(Constant.ALERT_TYPE_ERROR, "Please enter username/pin"));
         }
         else {
-            setMessage(createMessage( Constant.ALERT_TYPE_WARNNG, "Checking username and pin ..."));
+            setMessage(createMessage(Constant.ALERT_TYPE_WARNNG, "Checking username and pin ..."));
 
             var userData = await checkLogin(username, pin);
             if (userData) {
-                setMessage({type: Constant.ALERT_TYPE_SUCCESS, msg: "Login successfully."});
+                setMessage({ type: Constant.ALERT_TYPE_SUCCESS, msg: "Login successfully." });
                 setLoginUserData(userData);
                 setMainUi(Constant.UI_CLIENT_LIST);
             }
@@ -36,7 +38,7 @@ export default function Login() {
                 setMessage(createMessage(Constant.ALERT_TYPE_ERROR, "Login failed."));
             }
         }
-       
+
     };
 
     const handleOnClear = () => {
@@ -47,59 +49,61 @@ export default function Login() {
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-          event.preventDefault();
-          handleOnLogin()
+            event.preventDefault();
+            handleOnLogin()
         }
-      }
+    }
 
     return (
-        <div className="flex max-h- flex-col items-center p-20 bg-white rounded-lg shadow-lg " style={{ height: "calc(100vh - 80px)" }}>
-            
-            {message.msg != "" && <Alert type={message.type} message={message.msg} />}
+        <div className="flex items-center justify-center main-view">
+            <div className="flex flex-col p-20 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 items-center">
 
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
+                {message.msg != "" && <Alert type={message.type} message={message.msg} />}
 
-            <div>
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
 
-                <div className="relative flex items-center">
-                    <FaRegCircleUser className="absolute left-3 text-gray-400" />
-                    <input 
-                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => {setUsername(e.target.value); setMessage(createMessage())}} 
-                        onKeyDown={handleKeyDown}
-                        required
-                    />
+                <div>
+
+                    <div className="relative flex items-center">
+                        <FaUser  className="absolute left-3 text-gray-400" />
+                        <input
+                            className="pl-10 pr-4 py-2 border-gray-300 focus:border-blue-500 shadow appearance-none border rounded w-full px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => { setUsername(e.target.value); setMessage(createMessage()) }}
+                            onKeyDown={handleKeyDown}
+                            required
+                        />
+                    </div>
+
+                    <div className="relative flex items-center my-3">
+                        <FaKey className="absolute left-3 text-gray-400" /> <input
+                            id="pin"
+                            className="pl-10 pr-4 py-2 border-gray-300 focus:border-blue-500 shadow appearance-none border rounded w-full px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="password"
+                            value={pin}
+                            maxLength={4}
+                            onChange={(e) => { setPin(e.target.value); setMessage(createMessage()) }}
+                            onKeyDown={handleKeyDown}
+                            required />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                    
+                        <SpecButton 
+                            onClick={handleOnLogin}
+                            label="Log-In"
+                            clazz="w-2/5" />
+
+                        <SecondaryButton
+                            onClick={handleOnClear}
+                            label="Reset" 
+                            clazz="w-2/5" />
+
+                    </div>
+
                 </div>
-
-                <div className="relative flex items-center my-3">
-                    <FaKey className="absolute left-3 text-gray-400" /> <input 
-                        id="pin"
-                        className="shadow pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        type="password"
-                        value={pin}
-                        maxLength={4} 
-                        onChange={(e) => {setPin(e.target.value); setMessage(createMessage())}}
-                        onKeyDown={handleKeyDown}
-                        required  />
-                </div>
-
-                <div className="flex items-center justify-between">
-                    <button 
-                        className="bg-green-500 hover:bg-pink-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={handleOnLogin}>
-                            Log-In
-                    </button>
-
-                    <button
-                        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={handleOnClear}>
-                        Reset
-                    </button>
-                </div>
-
             </div>
         </div>
     )
